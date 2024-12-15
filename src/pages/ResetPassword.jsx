@@ -31,7 +31,7 @@ const ResetPassword = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/v1/user/reset-password/${token}`,
+        `https://medicare-backend-ko6l.onrender.com/api/v1/user/reset-password/${token}`,
         { password }
       );
       console.log("Password reset success:", response.data);

@@ -37,7 +37,7 @@ function Appointment() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/appointments/book",
+        "https://medicare-backend-ko6l.onrender.com/api/v1/appointments/book",
         {
           name,
           email,

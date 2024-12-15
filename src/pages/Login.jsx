@@ -17,11 +17,14 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/v1/user/login", {
-        email,
-        password,
-        confirmPassword,
-      });
+      const res = await axios.post(
+        "https://medicare-backend-ko6l.onrender.com/api/v1/user/login",
+        {
+          email,
+          password,
+          confirmPassword,
+        }
+      );
 
       toast.success(res.data.message || "Login successful!");
 

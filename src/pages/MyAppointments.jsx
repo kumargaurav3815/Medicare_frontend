@@ -21,7 +21,7 @@ const MyAppointments = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5000/api/v1/user/getAppointments",
+        "https://medicare-backend-ko6l.onrender.com/api/v1/user/getAppointments",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setAppointments(response.data.appointments);
@@ -39,7 +39,7 @@ const MyAppointments = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5000/api/v1/user/getConsultations",
+        "https://medicare-backend-ko6l.onrender.com/api/v1/user/getConsultations",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setConsultations(response.data.consultations);

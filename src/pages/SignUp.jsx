@@ -48,7 +48,7 @@ function Signup() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/user/patient/register",
+        "https://medicare-backend-ko6l.onrender.com/api/v1/user/patient/register",
         {
           firstName,
           lastName,

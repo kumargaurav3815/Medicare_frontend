@@ -62,7 +62,7 @@ function Consultation() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/consultations/book-consultation",
+        "https://medicare-backend-ko6l.onrender.com/api/v1/consultations/book-consultation",
         {
           name,
           email,
