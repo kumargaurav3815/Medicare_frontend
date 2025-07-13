@@ -77,3 +77,33 @@
     border-bottom: 2px solid #000;
   }
   
+
+  /* index.css or global.css */
+
+@media (orientation: portrait) {
+  .portrait {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .portrait .scale-up {
+    font-size: 1.35rem !important;
+    padding: 1.25rem !important;
+  }
+
+  .portrait .scale-image {
+    width: 10rem !important;
+    height: 10rem !important;
+  }
+
+  .portrait h2 {
+    font-size: 2.75rem !important;
+  }
+}
+
+@media (orientation: landscape) {
+  .landscape {
+    height: 100dvh;
+    overflow-y: auto;
+  }
+}

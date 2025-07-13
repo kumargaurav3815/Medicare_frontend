@@ -70,14 +70,14 @@ function Login() {
   }, []);
 
   return (
-    <section className="h-[100dvh] w-full overflow-y-auto bg-gradient-to-br from-blue-200 via-white to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4">
+    <section className="portrait landscape w-full bg-gradient-to-br from-blue-200 via-white to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4">
       <ToastContainer />
 
       <div className="min-h-[100dvh] flex flex-col items-center justify-center py-10">
         <img
           src={loginImg}
           alt="Login Illustration"
-          className="w-36 h-36 mb-6 rounded-lg shadow-lg"
+          className="scale-image mb-6 rounded-lg shadow-lg"
         />
 
         <h2 className="text-5xl font-bold text-gray-800 dark:text-white mb-6 text-center">
@@ -94,7 +94,7 @@ function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="scale-up w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
 
           <input
@@ -103,7 +103,7 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="scale-up w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
 
           <input
@@ -112,12 +112,12 @@ function Login() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="scale-up w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
 
           <button
             type="submit"
-            className="w-full py-5 text-xl rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition transform hover:scale-105 duration-200">
+            className="scale-up w-full py-5 text-xl rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition transform hover:scale-105 duration-200">
             Login
           </button>
 
