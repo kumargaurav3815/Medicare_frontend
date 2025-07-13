@@ -62,127 +62,112 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 py-12">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-extrabold text-gray-900 leading-tight mb-4">
-              Providing the Best Medical Services
+      {/* SERVICES PREVIEW */}
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Providing the Best Medical Services
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-12">
+            We deliver quality, compassion, and commitment with every visit.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { icon: icon03, title: "Book an Appointment" },
+              { icon: icon04, title: "Review Your Health" },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-blue-50 border border-blue-200 rounded-xl p-6 shadow hover:shadow-xl transition-all text-center">
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="w-16 h-16 mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Expert support, 24/7 availability, and seamless health
+                  tracking.
+                </p>
+                <Link
+                  to="/appointment"
+                  aria-label="Go to appointment page"
+                  className="inline-flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">
+                  <BsArrowRight />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* VIRTUAL CONSULTATION */}
+      <section className="py-20 px-6 bg-gradient-to-r from-blue-100 to-blue-300">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              Get virtual treatment anytime.
             </h2>
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-              World-class care for everyone. Our health system offers unmatched,
-              expert healthcare.
-            </p>
+            <ul className="list-disc pl-6 text-gray-700 text-lg space-y-3 mb-6">
+              <li>Book directly through our secure platform.</li>
+              <li>Speak with licensed doctors online.</li>
+              <li>Get prescriptions without leaving your home.</li>
+            </ul>
+            <Link to="/virtualAppointment">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow transition">
+                Book Online Consultation
+              </button>
+            </Link>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white shadow-xl rounded-xl p-8 text-center transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <img
-                src={icon03}
-                alt="Book an Appointment"
-                className="w-20 h-20 mx-auto mb-6"
-              />
-              <h3 className="text-2xl font-semibold text-gray-800">
-                Book an Appointment
-              </h3>
-              <p className="text-gray-600 mt-3">
-                World-class care for everyone. Our health system offers
-                unmatched, expert healthcare.
-              </p>
-              <Link
-                to="/appointment"
-                className="mt-6 inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition duration-300 shadow-md">
-                <BsArrowRight className="w-6 h-6" />
-              </Link>
-            </div>
-
-            <div className="bg-white shadow-xl rounded-xl p-8 text-center transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <img
-                src={icon04}
-                alt="Review Your Health"
-                className="w-20 h-20 mx-auto mb-6"
-              />
-              <h3 className="text-2xl font-semibold text-gray-800">
-                Review Your Health
-              </h3>
-              <p className="text-gray-600 mt-3">
-                World-class care for everyone. Our health system offers
-                unmatched, expert healthcare.
-              </p>
-              <Link
-                to="/appointment"
-                className="mt-6 inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition duration-300 shadow-md">
-                <BsArrowRight className="w-6 h-6" />
-              </Link>
-            </div>
+          <div className="flex justify-center">
+            <img
+              src={featureImg}
+              alt="Virtual treatment"
+              className="rounded-xl w-full max-w-md shadow-lg hover:shadow-2xl transition"
+            />
           </div>
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-200 to-blue-400 py-12">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center gap-10">
-            <div className="lg:w-1/2 text-center lg:text-left">
-              <h2 className="text-4xl font-extrabold text-white leading-tight mb-6">
-                Get virtual treatment anytime.
-              </h2>
-              <ul className="list-disc list-inside text-lg text-white/90 mb-8">
-                <li>Schedule the appointment directly.</li>
-                <li>Search your physician here, and contact their office.</li>
-                <li>
-                  Use the online scheduling tool to select an appointment time.
-                </li>
-              </ul>
-              <Link to="/virtualAppointment">
-                <button className="px-8 py-4 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full shadow-lg transition-transform transform hover:scale-105">
-                  Schedule an Appointment
-                </button>
-              </Link>
-            </div>
-
-            <div className="lg:w-1/2 flex justify-center">
-              <img
-                src={featureImg}
-                alt="Virtual Treatment"
-                className="w-[80%] max-w-md object-cover rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-gradient-to-r from-blue-100 to-blue-200 py-10">
-        <div className="container mx-auto px-4">
-          <h2 className="text-center text-3xl font-bold text-gray-800">
+      {/* SERVICES LIST */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             Our Medical Services
           </h2>
-          <p className="text-center text-lg text-gray-600 mt-4 mb-10">
-            World-class care for everyone. Our health system offers unmatched,
-            expert healthcare.
+          <p className="text-gray-600 text-lg mb-10">
+            Full spectrum of care – from general consultation to chronic disease
+            management.
           </p>
           <ServicesList />
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-100 to-blue-200 py-10">
-        <About />
+      {/* ABOUT SECTION */}
+      <section className="py-20 bg-blue-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <About />
+        </div>
       </section>
 
-      <section className="bg-gradient-to-r from-blue-100 to-blue-200 py-10">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="w-full md:w-1/2 hidden md:block">
-              <img
-                src={faqImg}
-                alt="FAQ"
-                className="w-full object-cover rounded-lg shadow-md"
-              />
-            </div>
-            <div className="w-full md:w-1/2">
-              <h2 className="text-3xl font-bold text-gray-800">
-                Most questions by our beloved patients.
-              </h2>
-              <FaqList />
-            </div>
+      {/* FAQ SECTION */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div className="hidden md:block">
+            <img
+              src={faqImg}
+              alt="Frequently asked questions"
+              className="w-full rounded-lg shadow-md"
+            />
+          </div>
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              Frequently Asked Questions
+            </h2>
+            <FaqList />
           </div>
         </div>
       </section>

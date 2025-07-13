@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import forgotPasswordImg from "../assets/images/forgot-password.webp";
@@ -13,78 +12,73 @@ const ForgotPasswordRequest = () => {
 
   const handleResetPasswordRequest = async (e) => {
     e.preventDefault();
-
     try {
       const response = await api.post("/user/request-password-reset", {
         email,
       });
       toast.success(response.data.message);
     } catch (error) {
-      // console.error("Error requesting password reset:", error);
       toast.error("Failed to request password reset. Please try again later.");
     }
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen w-full ">
-      <div className="max-w-[1170px] w-full px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="hidden lg:block">
-            <figure className="rounded-l-lg">
-              <img
-                src={forgotPasswordImg}
-                className="w-full"
-                alt="Forgot Password"
-              />
-            </figure>
-          </div>
+    <section className="flex items-center justify-center min-h-screen w-full bg-gradient-to-tr from-blue-100 via-white to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 transition-all">
+      <ToastContainer />
+      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 bg-white/30 dark:bg-gray-800/70 backdrop-blur-md rounded-xl shadow-xl p-6 md:p-10 border border-white/40 dark:border-gray-700">
+        <div className="hidden md:flex items-center justify-center">
+          <img
+            src={forgotPasswordImg}
+            alt="Forgot Password"
+            className="w-full max-w-md rounded-xl shadow-md"
+          />
+        </div>
 
-          <div className="rounded-lg lg:pl-16 py-10">
-            <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10 text-center lg:text-left">
-              Forgot Password
-            </h3>
+        <div className="flex flex-col justify-center">
+          <h2 className="text-3xl font-bold text-center md:text-left text-gray-800 dark:text-white mb-6">
+            Forgot your <span className="text-blue-600">Password?</span>
+          </h2>
 
-            <form onSubmit={handleResetPasswordRequest}>
-              <div className="mb-5">
-                <input
-                  type="email"
-                  name="email"
-                  className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoComplete="email"
-                />
-              </div>
+          <p className="text-gray-600 dark:text-gray-300 mb-4 text-center md:text-left">
+            Enter your registered email address. We will send you a password
+            reset link.
+          </p>
 
-              <div className="mt-7">
+          <form onSubmit={handleResetPasswordRequest} className="space-y-6">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            />
+
+            <button
+              type="submit"
+              className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-transform duration-300 hover:scale-105">
+              Request Password Reset
+            </button>
+
+            <p className="text-sm text-center text-gray-600 dark:text-gray-300">
+              Remember your password?
+              <Link to="/login" className="text-blue-600 font-medium ml-1">
+                Login
+              </Link>
+            </p>
+
+            <div className="flex justify-center items-center">
+              <Link to="/register" className="w-full">
                 <button
-                  type="submit"
-                  className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3">
-                  Request Password Reset
+                  type="button"
+                  className="w-full py-3 bg-slate-500 hover:bg-slate-600 text-white font-semibold rounded-lg shadow-md transition-transform duration-300 hover:scale-105">
+                  Create Account
                 </button>
-              </div>
-
-              <p className="mt-2 text-textColor text-center">
-                Already have an account?{" "}
-                <Link
-                  to="/login"
-                  className="text-primaryColor font-medium ml-1">
-                  Login
-                </Link>
-              </p>
-              <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-800" />
-              <div>
-                <Link to="/register">
-                  <button className="w-full bg-slate-500 text-white text-[18px] leading-[30px] rounded-lg px-4 py-3">
-                    Create Account
-                  </button>
-                </Link>
-              </div>
-            </form>
-            <ToastContainer />
-          </div>
+              </Link>
+            </div>
+          </form>
         </div>
       </div>
     </section>

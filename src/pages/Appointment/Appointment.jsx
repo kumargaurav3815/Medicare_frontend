@@ -33,14 +33,12 @@ function Appointment() {
     e.preventDefault();
 
     try {
-      // Book appointment API call
       const res = await api.post("/appointments/book", {
         name,
         email,
         appointmentDate,
       });
 
-      // Send confirmation email
       await emailjs.sendForm(
         "service_7jvv9ri",
         "template_jzdhqpk",
@@ -50,7 +48,6 @@ function Appointment() {
 
       toast.success(res.data.message || "Appointment booked successfully!");
 
-      // Reset form
       setName("");
       setEmail("");
       setAppointmentDate("");
@@ -65,89 +62,94 @@ function Appointment() {
     <>
       <Header />
       <ToastContainer />
-      <div className="max-w-[1170px] mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+      <section className="max-w-6xl mx-auto px-4 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 bg-white shadow-2xl rounded-3xl overflow-hidden">
           {/* Left Image */}
           <div className="hidden lg:block">
-            <figure className="rounded-l-lg">
-              <img
-                src={appointmentImg}
-                className="w-full h-full object-cover"
-                alt="Appointment"
-              />
-            </figure>
+            <img
+              src={appointmentImg}
+              alt="Book Appointment"
+              className="h-full w-full object-cover"
+            />
           </div>
 
           {/* Right Form */}
-          <div className="p-8 lg:pl-16 py-10">
-            <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10 text-center lg:text-left">
-              Book your Appointment Now
-            </h3>
+          <div className="p-8 md:p-12 bg-gradient-to-br from-white to-blue-50">
+            <h2 className="text-3xl font-bold text-blue-800 mb-8 text-center lg:text-left">
+              Book your <span className="text-primaryColor">Appointment</span>
+            </h2>
 
-            <form ref={form} onSubmit={bookAppointment}>
-              <div className="mb-5">
+            <form ref={form} onSubmit={bookAppointment} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   name="full_name"
-                  placeholder="Full Name"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryColor"
+                  placeholder="Enter your full name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                   autoComplete="name"
                 />
               </div>
 
-              <div className="mb-5">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email Address
+                </label>
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email Address"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryColor"
+                  placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                   autoComplete="email"
                 />
               </div>
 
-              <div className="mb-5">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Appointment Date
+                </label>
                 <input
                   type="date"
                   name="appointmentDate"
                   min={currentDate}
                   value={appointmentDate}
                   onChange={(e) => setAppointmentDate(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryColor"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                   autoComplete="off"
                 />
               </div>
 
-              <div className="mt-7">
-                <button
-                  type="submit"
-                  disabled={!isFormValid}
-                  className={`w-full text-[18px] leading-[30px] rounded-lg px-4 py-3 transition-colors duration-300 ${
-                    isFormValid
-                      ? "bg-primaryColor text-white hover:bg-primaryDark"
-                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  }`}>
-                  Book Now
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={!isFormValid}
+                className={`w-full text-white font-semibold text-lg py-3 rounded-lg transition duration-300 ${
+                  isFormValid
+                    ? "bg-blue-600 hover:bg-blue-700"
+                    : "bg-gray-300 cursor-not-allowed"
+                }`}>
+                Book Now
+              </button>
             </form>
 
-            <div className="mt-4 text-center lg:text-left">
+            <div className="mt-6 text-center">
               <Link
                 to="/consult"
-                className="text-primaryColor hover:underline block">
-                Book an online appointment
+                className="text-blue-600 hover:text-blue-800 hover:underline font-medium">
+                Book an online appointment instead
               </Link>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

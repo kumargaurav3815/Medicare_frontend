@@ -50,9 +50,7 @@ function Signup() {
       });
 
       toast.success(res.data.message || "Registration successful!");
-      setTimeout(() => {
-        navigateTo("/login");
-      }, 800);
+      setTimeout(() => navigateTo("/login"), 800);
 
       // Reset form fields
       setFirstName("");
@@ -62,7 +60,6 @@ function Signup() {
       setGender("");
       setPassword("");
     } catch (error) {
-      console.error("Registration error:", error);
       toast.error(
         error.response?.data?.message ||
           "Registration failed. Please try again."
@@ -71,126 +68,102 @@ function Signup() {
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen w-full">
-      <div className="max-w-[1170px] w-full px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="hidden lg:block rounded-l-lg overflow-hidden">
-            <figure className="h-full w-full">
-              <img
-                src={signUpImg}
-                className="object-cover w-full h-full"
-                alt="Sign Up"
-              />
-            </figure>
-          </div>
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-500 px-4">
+      <ToastContainer />
+      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 bg-white/30 backdrop-blur-md rounded-xl shadow-lg p-6 md:p-10 border border-white/30 dark:bg-gray-800 dark:border-gray-700">
+        <div className="hidden md:flex items-center justify-center">
+          <img
+            src={signUpImg}
+            alt="Sign Up"
+            className="w-full max-w-md rounded-xl shadow-md"
+          />
+        </div>
 
-          <div className="rounded-lg lg:pl-16 py-10">
-            <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10 text-center lg:text-left">
-              Create an <span className="text-primaryColor">account</span>
-            </h3>
+        <div className="flex flex-col justify-center">
+          <h2 className="text-3xl font-bold text-center md:text-left text-gray-800 dark:text-white mb-6">
+            Create your <span className="text-blue-600">Account</span>
+          </h2>
 
-            <form onSubmit={handleRegistration}>
-              <div className="mb-5">
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                />
-              </div>
+          <form onSubmit={handleRegistration} className="space-y-5">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            />
 
-              <div className="mb-5">
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                />
-              </div>
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            />
 
-              <div className="mb-5">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                  autoComplete="email"
-                />
-              </div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            />
 
-              <div className="mb-5">
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                  autoComplete="tel"
-                />
-              </div>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              autoComplete="tel"
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            />
 
-              <div className="mb-5">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                  autoComplete="new-password"
-                />
-              </div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="new-password"
+              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            />
 
-              <div className="mb-5 flex items-center justify-between">
-                <label className="text-headingColor font-bold text-[16px] leading-7">
-                  Gender
-                  <select
-                    name="gender"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    className="ml-4 text-textColor font-semibold text-[15px] px-4 py-3 border border-gray-300 rounded focus:outline-none"
-                    required>
-                    <option value="">Select</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </label>
-              </div>
+            <select
+              name="gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              required
+              className="w-full p-3 rounded-lg border border-gray-300 text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
 
-              <div className="mt-7">
-                <button
-                  type="submit"
-                  className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3">
-                  Sign Up
-                </button>
-              </div>
+            <button
+              type="submit"
+              className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-1 hover:scale-105">
+              Sign Up
+            </button>
 
-              <p className="mt-5 text-textColor text-center">
-                Already have an account?
-                <Link
-                  to="/login"
-                  className="text-primaryColor font-medium ml-1">
-                  Login
-                </Link>
-              </p>
-            </form>
-          </div>
+            <p className="text-sm text-center text-gray-600 dark:text-gray-300">
+              Already have an account?
+              <Link to="/login" className="text-blue-600 font-medium ml-1">
+                Login
+              </Link>
+            </p>
+          </form>
         </div>
       </div>
-
-      <ToastContainer />
     </section>
   );
 }

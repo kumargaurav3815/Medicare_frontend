@@ -6,7 +6,6 @@ import Header from "../../components/Header/Header";
 import consultationImg from "../../assets/images/onlineAppointment.png";
 import emailjs from "@emailjs/browser";
 import { Link } from "react-router-dom";
-// import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../../../api";
 
@@ -40,7 +39,6 @@ function Consultation() {
     e.preventDefault();
 
     try {
-      // Backend booking
       const res = await api.post("consultations/book-consultation", {
         name,
         email,
@@ -50,7 +48,6 @@ function Consultation() {
         prescriptionNeed,
       });
 
-      // Send confirmation email
       await emailjs.sendForm(
         "service_67w4fp1",
         "template_3ahxliv",
@@ -60,7 +57,6 @@ function Consultation() {
 
       toast.success(res.data.message || "Consultation booked successfully!");
 
-      // Reset fields
       setName("");
       setEmail("");
       setAppointmentDate("");
@@ -78,106 +74,120 @@ function Consultation() {
     <>
       <Header />
       <ToastContainer />
-      <div className="max-w-[1170px] mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Image Section */}
-          <div className="hidden lg:flex justify-center items-center">
-            <figure className="w-full h-full flex justify-center items-center">
-              <img
-                src={consultationImg}
-                className="max-w-full max-h-full object-contain"
-                alt="Consultation"
-              />
-            </figure>
+      <section className="max-w-6xl mx-auto px-4 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-3xl shadow-xl overflow-hidden">
+          {/* Left Image */}
+          <div className="hidden lg:flex justify-center items-center bg-blue-50">
+            <img
+              src={consultationImg}
+              alt="Online Consultation"
+              className="w-full h-full object-contain p-8"
+            />
           </div>
 
-          {/* Form Section */}
-          <div className="p-8 lg:pl-16 py-10">
-            <h3 className="text-headingColor text-[22px] font-bold mb-10 text-center lg:text-left">
-              Book your Consultation Now
-            </h3>
+          {/* Right Form */}
+          <div className="p-8 md:p-12 bg-gradient-to-br from-white to-blue-50">
+            <h2 className="text-3xl font-bold text-blue-800 mb-8 text-center lg:text-left">
+              Book an{" "}
+              <span className="text-primaryColor">Online Consultation</span>
+            </h2>
 
-            <form ref={form} onSubmit={bookConsultation}>
-              <div className="mb-5">
+            <form ref={form} onSubmit={bookConsultation} className="space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   name="name"
-                  placeholder="Full Name"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primaryColor"
+                  placeholder="Enter your full name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
-                  autoComplete="name"
                 />
               </div>
 
-              <div className="mb-5">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email Address
+                </label>
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email Address"
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primaryColor"
+                  placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoComplete="email"
-                />
-              </div>
-
-              <div className="mb-5">
-                <input
-                  type="date"
-                  name="appointmentDate"
-                  min={currentDate}
-                  value={appointmentDate}
-                  onChange={(e) => setAppointmentDate(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primaryColor"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
 
-              <div className="mb-5">
-                <input
-                  type="time"
-                  name="appointmentTime"
-                  value={appointmentTime}
-                  onChange={(e) => setAppointmentTime(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primaryColor"
-                  required
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    name="appointmentDate"
+                    min={currentDate}
+                    value={appointmentDate}
+                    onChange={(e) => setAppointmentDate(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Time
+                  </label>
+                  <input
+                    type="time"
+                    name="appointmentTime"
+                    value={appointmentTime}
+                    onChange={(e) => setAppointmentTime(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
               </div>
 
-              <div className="mb-5">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Call Type
+                </label>
                 <select
                   name="callType"
                   value={callType}
                   onChange={(e) => setCallType(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primaryColor">
+                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <option value="video">Video Call</option>
                   <option value="audio">Audio Call</option>
                 </select>
               </div>
 
-              <div className="mb-5 flex items-center">
+              <div className="flex items-center space-x-2">
                 <input
                   type="checkbox"
                   name="prescriptionNeed"
                   checked={prescriptionNeed}
-                  onChange={() =>
-                    setPrescriptionNeed((prevState) => !prevState)
-                  }
-                  className="mr-2"
+                  onChange={() => setPrescriptionNeed((prev) => !prev)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
-                <label htmlFor="prescriptionNeed">Prescription Needed?</label>
+                <label className="text-sm text-gray-700">
+                  Prescription Needed?
+                </label>
               </div>
 
               <div className="mt-6">
                 <button
                   type="submit"
                   disabled={!isFormValid}
-                  className={`w-full py-3 px-4 font-semibold rounded-lg transition-colors duration-300 ${
+                  className={`w-full py-3 px-4 font-semibold rounded-lg transition duration-300 ${
                     isFormValid
-                      ? "bg-primaryColor text-white hover:bg-primaryDark"
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }`}>
                   Book Consultation
@@ -185,16 +195,16 @@ function Consultation() {
               </div>
             </form>
 
-            <div className="mt-4 text-center lg:text-left">
+            <div className="mt-5 text-center">
               <Link
                 to="/appointment"
-                className="text-primaryColor hover:underline text-sm lg:text-base">
-                Visit our clinic
+                className="text-blue-600 hover:underline font-medium">
+                Prefer in-clinic visit?
               </Link>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
