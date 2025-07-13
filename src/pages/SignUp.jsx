@@ -1,7 +1,7 @@
 /** @format */
 
 import { useState } from "react";
-import registerImg from "../assets/images/register.gif";
+import registerImg from "../assets/images/signup.gif";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
