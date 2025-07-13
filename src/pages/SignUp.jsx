@@ -40,7 +40,7 @@ function Signup() {
     }
 
     try {
-      const res = await api.post("/api/v1/user/patient/register", {
+      const res = await api.post("/user/patient/register", {
         firstName,
         lastName,
         email,

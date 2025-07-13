@@ -18,7 +18,7 @@ const MyAppointments = () => {
   const fetchAppointments = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/api/v1//user/getAppointments");
+      const response = await api.get("/user/getAppointments");
       setAppointments(response.data.appointments);
       setFilteredData(response.data.appointments);
     } catch (err) {

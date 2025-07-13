@@ -38,7 +38,7 @@ function Consultation() {
 
     try {
       // Backend consultation booking
-      const res = await api.post("/api/v1/consultations/book-consultation", {
+      const res = await api.post("/consultations/book-consultation", {
         name,
         email,
         appointmentDate,
