@@ -89,7 +89,7 @@ function Login() {
   }, []);
 
   return (
-    <section className="flex items-center justify-center min-h-screen w-full bg-gray-50 dark:bg-[#0f172a]">
+    <section className="flex items-center justify-center w-full h-auto min-h-[100dvh] lg:min-h-screen py-10 overflow-y-auto bg-gray-50 dark:bg-[#0f172a]">
       <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-900">
         {/* Image Section */}
         <div className="hidden lg:flex w-full lg:w-1/2">
