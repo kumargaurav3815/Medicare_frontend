@@ -27,7 +27,7 @@ function ResetPassword() {
 
   return (
     <section className="w-full min-h-[100dvh] h-auto bg-gray-50 dark:bg-[#0f172a] overflow-y-auto flex justify-center items-center py-10">
-      <div className="w-full max-w-[800px] mx-auto flex flex-col lg:flex-row shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-900">
+      <div className="w-full max-w-[1000px] mx-auto flex flex-col lg:flex-row shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-900">
         {/* Image Section */}
         <div className="hidden lg:flex w-full lg:w-1/2">
           <img
@@ -47,7 +47,7 @@ function ResetPassword() {
             <input
               type="email"
               name="email"
-              placeholder="Enter your email"
+              placeholder="Enter your registered email"
               className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -59,6 +59,15 @@ function ResetPassword() {
               className="w-full bg-primaryColor hover:bg-blue-700 transition text-white text-lg font-medium py-3 rounded-md">
               Send Reset Link
             </button>
+
+            <div className="text-center mt-4">
+              <button
+                type="button"
+                className="text-sm text-primaryColor hover:underline dark:text-blue-400"
+                onClick={() => navigate("/login")}>
+                Back to Login
+              </button>
+            </div>
           </form>
         </div>
       </div>

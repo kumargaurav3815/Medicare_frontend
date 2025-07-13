@@ -3,7 +3,7 @@
 import { useState } from "react";
 import registerImg from "../assets/images/signup.gif";
 import api from "../../api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -103,6 +103,12 @@ function Register() {
               className="w-full bg-primaryColor hover:bg-blue-700 transition text-white text-lg font-medium py-3 rounded-md">
               Register
             </button>
+            <p className="mt-5 text-white text-center">
+              Already have an account?
+              <Link to="/login" className="text-primaryColor font-medium ml-1">
+                Login
+              </Link>
+            </p>
           </form>
         </div>
       </div>
