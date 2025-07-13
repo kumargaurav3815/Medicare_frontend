@@ -1,40 +1,71 @@
 /** @format */
 
 import { useState } from "react";
-import registerImg from "../assets/images/signup.gif";
-import api from "../../api";
+import signUpImg from "../assets/images/signup.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import api from "../../api";
 import "react-toastify/dist/ReactToastify.css";
 
-function Register() {
+function Signup() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigateTo = useNavigate();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const validateEmail = (email) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase());
 
-  const handleRegister = async (e) => {
+  const validatePhone = (phone) => phone.length >= 10;
+  const validatePassword = (password) => password.length >= 6;
+
+  const handleRegistration = async (e) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) {
-      return toast.error("Passwords do not match!");
+
+    if (!validateEmail(email)) {
+      toast.error("Please enter a valid email.");
+      return;
+    }
+    if (!validatePhone(phone)) {
+      toast.error("Phone number should be at least 10 digits.");
+      return;
+    }
+    if (!validatePassword(password)) {
+      toast.error("Password should be at least 6 characters long.");
+      return;
     }
 
     try {
-      const res = await api.post("/user/register", form);
-      toast.success(res.data.message || "Registered successfully!");
+      const res = await api.post("/user/patient/register", {
+        firstName,
+        lastName,
+        email,
+        phone,
+        gender,
+        password,
+      });
+
+      toast.success(res.data.message || "Registration successful!");
       setTimeout(() => {
         navigateTo("/login");
       }, 800);
-    } catch (err) {
+
+      // Reset form fields
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setGender("");
+      setPassword("");
+    } catch (error) {
+      console.error("Registration error:", error);
       toast.error(
-        err.response?.data?.message || "Registration failed. Try again."
+        error.response?.data?.message ||
+          "Registration failed. Please try again."
       );
     }
   };
@@ -42,70 +73,103 @@ function Register() {
   return (
     <section className="w-full min-h-[100dvh] h-auto bg-gray-50 dark:bg-[#0f172a] overflow-y-auto flex justify-center items-center py-10">
       <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-900">
-        {/* Image Section */}
+        {/* Left Image Section */}
         <div className="hidden lg:flex w-full lg:w-1/2">
           <img
-            src={registerImg}
-            alt="Register Visual"
+            src={signUpImg}
+            alt="Sign Up"
             className="object-cover w-full h-full"
           />
         </div>
 
-        {/* Form Section */}
+        {/* Right Form Section */}
         <div className="w-full lg:w-1/2 px-8 py-12 md:px-16">
           <h2 className="text-3xl font-bold text-center text-primaryColor dark:text-white mb-8">
-            Create an Account 🚀
+            Create Your Account 👤
           </h2>
 
-          <form onSubmit={handleRegister} className="space-y-6">
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
-              onChange={handleChange}
-              value={form.name}
-              required
-            />
+          <form onSubmit={handleRegistration} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor"
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor"
+              />
+            </div>
 
             <input
               type="email"
               name="email"
               placeholder="Email Address"
-              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
-              onChange={handleChange}
-              value={form.email}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor"
+            />
+
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              autoComplete="tel"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor"
             />
 
             <input
               type="password"
               name="password"
               placeholder="Password"
-              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
-              onChange={handleChange}
-              value={form.password}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="new-password"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor"
             />
 
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
-              onChange={handleChange}
-              value={form.confirmPassword}
-              required
-            />
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <label className="font-medium text-gray-700 dark:text-white">
+                Gender:
+              </label>
+              <select
+                name="gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                required
+                className="w-full sm:w-auto px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor">
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
 
             <button
               type="submit"
               className="w-full bg-primaryColor hover:bg-blue-700 transition text-white text-lg font-medium py-3 rounded-md">
-              Register
+              Sign Up
             </button>
-            <p className="mt-5 text-white text-center">
+
+            <p className="mt-4 text-center text-gray-600 dark:text-gray-300">
               Already have an account?
-              <Link to="/login" className="text-primaryColor font-medium ml-1">
+              <Link
+                to="/login"
+                className="text-primaryColor font-semibold ml-1">
                 Login
               </Link>
             </p>
@@ -118,4 +182,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Signup;

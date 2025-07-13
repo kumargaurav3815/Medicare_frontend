@@ -1,80 +1,102 @@
 /** @format */
 
-import { useState } from "react";
-import resetImg from "../assets/images/reset-password.jpg";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import api from "../../api";
-import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function ResetPassword() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+const ResetPassword = () => {
+  const { token } = useParams();
+  const navigateTo = useNavigate();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleReset = async (e) => {
+  useEffect(() => {
+    if (!token) {
+      toast.error("Invalid or expired token.");
+      setTimeout(() => {
+        navigateTo("/login");
+      }, 3000);
+    }
+  }, [token, navigateTo]);
+
+  const handleResetPassword = async (e) => {
     e.preventDefault();
 
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
     try {
-      const res = await api.post("/user/reset-password", { email });
-      toast.success(res.data.message || "Password reset link sent!");
-      setTimeout(() => navigate("/login"), 1000);
+      const response = await api.put(`/user/reset-password/${token}`, {
+        password,
+      });
+
+      toast.success(response.data.message || "Password reset successful!");
+      setTimeout(() => {
+        navigateTo("/login");
+      }, 1000);
     } catch (error) {
       toast.error(
-        error.response?.data?.message || "Reset failed. Please try again."
+        error.response?.data?.message ||
+          "Failed to reset password. Please try again later."
       );
     }
   };
 
   return (
-    <section className="w-full min-h-[100dvh] h-auto bg-gray-50 dark:bg-[#0f172a] overflow-y-auto flex justify-center items-center py-10">
-      <div className="w-full max-w-[1000px] mx-auto flex flex-col lg:flex-row shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-900">
-        {/* Image Section */}
-        <div className="hidden lg:flex w-full lg:w-1/2">
-          <img
-            src={resetImg}
-            alt="Reset Password"
-            className="object-cover w-full h-full"
-          />
-        </div>
+    <section className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-100 to-blue-50 px-6 py-8">
+      <div className="max-w-md w-full bg-white shadow-lg rounded-xl p-8">
+        <h3 className="text-primaryColor text-3xl font-bold mb-8 text-center">
+          Reset Password
+        </h3>
 
-        {/* Form Section */}
-        <div className="w-full lg:w-1/2 px-8 py-12 md:px-16">
-          <h2 className="text-3xl font-bold text-center text-primaryColor dark:text-white mb-8">
-            Reset Your Password 🔐
-          </h2>
-
-          <form onSubmit={handleReset} className="space-y-6">
+        <form onSubmit={handleResetPassword}>
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              New Password
+            </label>
             <input
-              type="email"
-              name="email"
-              placeholder="Enter your registered email"
-              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="password"
+              placeholder="Enter new password"
+              autoComplete="new-password"
+              className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-primaryColor focus:outline-none text-gray-900 text-base placeholder-gray-400"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
+          </div>
 
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Confirm New Password
+            </label>
+            <input
+              type="password"
+              placeholder="Confirm your password"
+              autoComplete="confirm-password"
+              className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-primaryColor focus:outline-none text-gray-900 text-base placeholder-gray-400"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mt-8">
             <button
               type="submit"
-              className="w-full bg-primaryColor hover:bg-blue-700 transition text-white text-lg font-medium py-3 rounded-md">
-              Send Reset Link
+              className="w-full bg-primaryColor hover:bg-primaryDark text-white text-lg font-semibold rounded-lg px-4 py-3 transition ease-in-out duration-300">
+              Reset Password
             </button>
+          </div>
+        </form>
 
-            <div className="text-center mt-4">
-              <button
-                type="button"
-                className="text-sm text-primaryColor hover:underline dark:text-blue-400"
-                onClick={() => navigate("/login")}>
-                Back to Login
-              </button>
-            </div>
-          </form>
-        </div>
+        <ToastContainer />
       </div>
-
-      <ToastContainer />
     </section>
   );
-}
+};
 
 export default ResetPassword;
