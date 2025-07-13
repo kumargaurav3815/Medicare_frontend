@@ -81,15 +81,10 @@ function Login() {
     if (token) {
       checkTokenExpiration(token);
     }
-
-    document.body.style.overflowY = "hidden"; // Lock vertical scroll
-    return () => {
-      document.body.style.overflowY = "auto";
-    };
   }, []);
 
   return (
-    <section className="flex items-center justify-center w-full h-auto min-h-[100dvh] lg:min-h-screen py-10 overflow-y-auto bg-gray-50 dark:bg-[#0f172a]">
+    <section className="w-full min-h-[100dvh] h-auto bg-gray-50 dark:bg-[#0f172a] overflow-y-auto flex justify-center items-center py-10">
       <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-900">
         {/* Image Section */}
         <div className="hidden lg:flex w-full lg:w-1/2">
