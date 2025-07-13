@@ -84,13 +84,13 @@ function Login() {
 
     document.body.style.overflowY = "hidden"; // Lock vertical scroll
     return () => {
-      document.body.style.overflowY = "auto"; // Restore on unmount
+      document.body.style.overflowY = "auto";
     };
   }, []);
 
   return (
-    <section className="flex items-center justify-center h-screen overflow-x-auto bg-gray-50 dark:bg-[#0f172a] transition-all duration-300 ease-in-out">
-      <div className="flex flex-col lg:flex-row w-[95%] max-w-[1200px] shadow-2xl rounded-lg overflow-hidden bg-white dark:bg-slate-900">
+    <section className="flex items-center justify-center min-h-screen w-full bg-gray-50 dark:bg-[#0f172a]">
+      <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-900">
         {/* Image Section */}
         <div className="hidden lg:flex w-full lg:w-1/2">
           <img
