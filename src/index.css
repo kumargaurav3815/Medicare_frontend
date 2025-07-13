@@ -77,20 +77,5 @@
     border-bottom: 2px solid #000;
   }
   
-@media (orientation: portrait) {
-  .responsive-layout {
-    flex-direction: column;
-    height: 100dvh;
-    overflow-y: hidden;
-    overflow-x: hidden;
-  }
-}
 
-@media (orientation: landscape) {
-  .responsive-layout {
-    flex-direction: row;
-    height: 100dvh;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-}
+  
