@@ -81,91 +81,92 @@ function Login() {
     if (token) {
       checkTokenExpiration(token);
     }
+
+    document.body.style.overflowY = "hidden"; // Lock vertical scroll
+    return () => {
+      document.body.style.overflowY = "auto"; // Restore on unmount
+    };
   }, []);
 
   return (
-    <section className="flex items-center justify-center min-h-screen w-full">
-      <div className="max-w-[1170px] w-full px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="hidden lg:block">
-            <figure className="rounded-l-lg">
-              <img src={loginImg} className="w-full" alt="Login" />
-            </figure>
-          </div>
+    <section className="flex items-center justify-center h-screen overflow-x-auto bg-gray-50 dark:bg-[#0f172a] transition-all duration-300 ease-in-out">
+      <div className="flex flex-col lg:flex-row w-[95%] max-w-[1200px] shadow-2xl rounded-lg overflow-hidden bg-white dark:bg-slate-900">
+        {/* Image Section */}
+        <div className="hidden lg:flex w-full lg:w-1/2">
+          <img
+            src={loginImg}
+            alt="Login Visual"
+            className="object-cover w-full h-full"
+          />
+        </div>
 
-          <div className="rounded-lg lg:pl-16 py-10">
-            <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10 text-center lg:text-left">
+        {/* Form Section */}
+        <div className="w-full lg:w-1/2 px-8 py-12 md:px-16">
+          <h2 className="text-3xl font-bold text-center text-primaryColor dark:text-white mb-8">
+            Welcome Back 👋
+          </h2>
+
+          <form onSubmit={handleLogin} className="space-y-6">
+            <input
+              type="email"
+              name="email"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
+
+            <input
+              type="password"
+              name="password"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
+
+            <input
+              type="password"
+              name="confirmPassword"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              autoComplete="new-password"
+            />
+
+            <button
+              type="submit"
+              className="w-full bg-primaryColor hover:bg-blue-700 transition text-white text-lg font-medium py-3 rounded-md">
               Login
-            </h3>
+            </button>
 
-            <form onSubmit={handleLogin}>
-              <div className="mb-5">
-                <input
-                  type="email"
-                  name="email"
-                  className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoComplete="email"
-                />
-              </div>
+            <div className="text-center mt-4">
+              <Link
+                to="/forgotPassword"
+                className="text-sm text-primaryColor hover:underline dark:text-blue-400">
+                Forgot Password?
+              </Link>
+            </div>
 
-              <div className="mb-5">
-                <input
-                  type="password"
-                  name="password"
-                  className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  autoComplete="current-password"
-                />
-              </div>
+            <div className="flex items-center gap-4 my-4">
+              <hr className="flex-1 border-gray-300 dark:border-gray-600" />
+              <span className="text-gray-400 text-sm">OR</span>
+              <hr className="flex-1 border-gray-300 dark:border-gray-600" />
+            </div>
 
-              <div className="mb-5">
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  autoComplete="new-password"
-                />
-              </div>
-
-              <div className="mt-7">
-                <button
-                  type="submit"
-                  className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3">
-                  Login
-                </button>
-              </div>
-
-              <p className="mt-2 text-textColor text-center">
-                <Link
-                  to="/forgotPassword"
-                  className="text-primaryColor font-medium ml-1">
-                  Forgot Password?
-                </Link>
-              </p>
-
-              <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-800" />
-
-              <div>
-                <button
-                  type="button"
-                  className="w-full bg-slate-500 text-white text-[18px] leading-[30px] rounded-lg px-4 py-3"
-                  onClick={handleRegisterNewUser}>
-                  Create Account
-                </button>
-              </div>
-            </form>
-          </div>
+            <button
+              type="button"
+              className="w-full bg-gray-600 hover:bg-gray-700 transition text-white text-lg font-medium py-3 rounded-md"
+              onClick={handleRegisterNewUser}>
+              Create Account
+            </button>
+          </form>
         </div>
       </div>
 
