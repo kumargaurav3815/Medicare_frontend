@@ -2,74 +2,98 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import api from "../../api";
 import "react-toastify/dist/ReactToastify.css";
 
 const ResetPassword = () => {
   const { token } = useParams();
-  const navigate = useNavigate();
+  const navigateTo = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
     if (!token) {
       toast.error("Invalid or expired token.");
-      setTimeout(() => navigate("/login"), 3000);
+      setTimeout(() => {
+        navigateTo("/login");
+      }, 3000);
     }
-  }, [token, navigate]);
+  }, [token, navigateTo]);
 
-  const handleSubmit = async (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword)
-      return toast.error("Passwords do not match!");
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
 
     try {
-      const res = await api.put(`/user/reset-password/${token}`, { password });
-      toast.success(res.data.message || "Password reset successful!");
-      setTimeout(() => navigate("/login"), 1000);
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Error resetting password.");
+      const response = await api.put(`/user/reset-password/${token}`, {
+        password,
+      });
+
+      toast.success(response.data.message || "Password reset successful!");
+      setTimeout(() => {
+        navigateTo("/login");
+      }, 1000);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to reset password. Please try again later."
+      );
     }
   };
 
   return (
-    <section className="w-full h-[100dvh] flex responsive-layout items-center justify-center bg-gradient-to-br from-blue-100 to-blue-50 px-4">
-      <ToastContainer />
-      <div className="flex justify-center items-center p-4 w-full max-w-md">
-        <img
-          src="/assets/images/reset.gif"
-          alt="Reset Password"
-          className="w-40 h-40 rounded-lg mb-4 md:mb-0"
-        />
-      </div>
-      <div className="flex flex-col justify-center w-full max-w-md px-4 py-6">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-6">
+    <section className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-100 to-blue-50 px-6 py-8">
+      <div className="max-w-md w-full bg-white shadow-lg rounded-xl p-8">
+        <h3 className="text-primaryColor text-3xl font-bold mb-8 text-center">
           Reset Password
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <input
-            type="password"
-            placeholder="New Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300"
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300"
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold">
-            Reset
-          </button>
+        </h3>
+
+        <form onSubmit={handleResetPassword}>
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              New Password
+            </label>
+            <input
+              type="password"
+              placeholder="Enter new password"
+              autoComplete="new-password"
+              className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-primaryColor focus:outline-none text-gray-900 text-base placeholder-gray-400"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Confirm New Password
+            </label>
+            <input
+              type="password"
+              placeholder="Confirm your password"
+              autoComplete="confirm-password"
+              className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-primaryColor focus:outline-none text-gray-900 text-base placeholder-gray-400"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mt-8">
+            <button
+              type="submit"
+              className="w-full bg-primaryColor hover:bg-primaryDark text-white text-lg font-semibold rounded-lg px-4 py-3 transition ease-in-out duration-300">
+              Reset Password
+            </button>
+          </div>
         </form>
+
+        <ToastContainer />
       </div>
     </section>
   );
