@@ -1,7 +1,7 @@
 /** @format */
 
 import { useState } from "react";
-import resetImg from "../assets/images/reset.gif";
+import resetImg from "../assets/images/reset-password.jpg";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
