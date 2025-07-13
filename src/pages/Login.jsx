@@ -72,77 +72,72 @@ function Login() {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-200 via-white to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-500">
+    <section className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-blue-200 via-white to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 sm:px-6">
       <ToastContainer />
-      <div className="max-w-6xl w-full mx-4 grid grid-cols-1 md:grid-cols-2 bg-white/20 backdrop-blur-md rounded-xl shadow-2xl p-6 md:p-10 border border-white/30 dark:bg-gray-800 dark:border-gray-700">
-        <div className="hidden md:flex items-center justify-center">
+      <div className="w-full max-w-md bg-white/30 dark:bg-gray-800 backdrop-blur-md rounded-xl shadow-2xl p-6 sm:p-8 border border-white/30 dark:border-gray-700">
+        <div className="flex flex-col items-center">
           <img
             src={loginImg}
-            alt="Login Illustration"
-            className="w-full max-w-md rounded-lg shadow-md"
+            alt="Login"
+            className="w-40 h-40 mb-4 rounded-lg shadow-md block lg:hidden"
           />
-        </div>
-
-        <div className="flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-center md:text-left text-gray-800 dark:text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center">
             Welcome Back
           </h2>
-
-          <form onSubmit={handleLogin} className="space-y-5">
-            <input
-              type="email"
-              name="email"
-              required
-              autoComplete="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
-            />
-
-            <input
-              type="password"
-              name="password"
-              required
-              autoComplete="current-password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
-            />
-
-            <div className="mb-5">
-              <input
-                type="password"
-                name="confirmPassword"
-                className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                autoComplete="new-password"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-              Login
-            </button>
-
-            <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-300">
-              <Link to="/forgotPassword" className="hover:text-blue-600">
-                Forgot Password?
-              </Link>
-              <button
-                type="button"
-                onClick={() => navigateTo("/register")}
-                className="hover:text-blue-600">
-                Create Account
-              </button>
-            </div>
-          </form>
         </div>
+
+        <form onSubmit={handleLogin} className="space-y-5">
+          <input
+            type="email"
+            name="email"
+            required
+            autoComplete="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          />
+
+          <input
+            type="password"
+            name="password"
+            required
+            autoComplete="current-password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          />
+
+          <input
+            type="password"
+            name="confirmPassword"
+            required
+            autoComplete="new-password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          />
+
+          <button
+            type="submit"
+            className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+            Login
+          </button>
+
+          <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600 dark:text-gray-300 gap-3 pt-2">
+            <Link to="/forgotPassword" className="hover:text-blue-600">
+              Forgot Password?
+            </Link>
+            <button
+              type="button"
+              onClick={() => navigateTo("/register")}
+              className="hover:text-blue-600">
+              Create Account
+            </button>
+          </div>
+        </form>
       </div>
     </section>
   );
