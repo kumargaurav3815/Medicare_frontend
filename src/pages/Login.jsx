@@ -70,61 +70,57 @@ function Login() {
   }, []);
 
   return (
-    <section className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 via-white to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 sm:px-6">
+    <section className="h-[100dvh] w-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 via-white to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden px-4">
       <ToastContainer />
 
-      {/* Image for Mobile */}
       <img
         src={loginImg}
         alt="Login Illustration"
-        className="w-32 h-32 mb-6 rounded-lg shadow-lg block lg:hidden"
+        className="w-24 h-24 mb-4 rounded-lg shadow-lg"
       />
 
-      <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+      <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
         Welcome Back
       </h2>
 
-      <form onSubmit={handleLogin} className="w-full max-w-md space-y-5">
+      <form
+        onSubmit={handleLogin}
+        className="w-full max-w-sm space-y-4"
+        autoComplete="off">
         <input
           type="email"
-          name="email"
-          required
-          autoComplete="email"
           placeholder="Email Address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          required
+          className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
         />
 
         <input
           type="password"
-          name="password"
-          required
-          autoComplete="current-password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          required
+          className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
         />
 
         <input
           type="password"
-          name="confirmPassword"
-          required
-          autoComplete="new-password"
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          required
+          className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
         />
 
         <button
           type="submit"
-          className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+          className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition transform hover:scale-105 duration-200">
           Login
         </button>
 
-        <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600 dark:text-gray-300 gap-3 pt-2">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300 pt-1">
           <Link to="/forgotPassword" className="hover:text-blue-600">
             Forgot Password?
           </Link>
