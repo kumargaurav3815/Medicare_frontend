@@ -70,68 +70,70 @@ function Login() {
   }, []);
 
   return (
-    <section className="h-[100dvh] w-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 via-white to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden px-4">
+    <section className="h-[100dvh] w-full overflow-y-auto bg-gradient-to-br from-blue-200 via-white to-purple-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4">
       <ToastContainer />
 
-      <img
-        src={loginImg}
-        alt="Login Illustration"
-        className="w-36 h-36 mb-6 rounded-lg shadow-lg"
-      />
-
-      <h2 className="text-5xl font-bold text-gray-800 dark:text-white mb-6 text-center">
-        Welcome Back
-      </h2>
-
-      <form
-        onSubmit={handleLogin}
-        className="w-full max-w-md space-y-6"
-        autoComplete="off">
-        <input
-          type="email"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      <div className="min-h-[100dvh] flex flex-col items-center justify-center py-10">
+        <img
+          src={loginImg}
+          alt="Login Illustration"
+          className="w-36 h-36 mb-6 rounded-lg shadow-lg"
         />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
-        />
+        <h2 className="text-5xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+          Welcome Back
+        </h2>
 
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-          className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
-        />
+        <form
+          onSubmit={handleLogin}
+          className="w-full max-w-md space-y-6"
+          autoComplete="off">
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
 
-        <button
-          type="submit"
-          className="w-full py-5 text-xl rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition transform hover:scale-105 duration-200">
-          Login
-        </button>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
 
-        <div className="flex justify-between text-lg text-gray-600 dark:text-gray-300 pt-2">
-          <Link to="/forgotPassword" className="hover:text-blue-600">
-            Forgot Password?
-          </Link>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            className="w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+
           <button
-            type="button"
-            onClick={() => navigateTo("/register")}
-            className="hover:text-blue-600">
-            Create Account
+            type="submit"
+            className="w-full py-5 text-xl rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition transform hover:scale-105 duration-200">
+            Login
           </button>
-        </div>
-      </form>
+
+          <div className="flex justify-between text-lg text-gray-600 dark:text-gray-300 pt-2">
+            <Link to="/forgotPassword" className="hover:text-blue-600">
+              Forgot Password?
+            </Link>
+            <button
+              type="button"
+              onClick={() => navigateTo("/register")}
+              className="hover:text-blue-600">
+              Create Account
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
   );
 }
