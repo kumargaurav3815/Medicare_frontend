@@ -47,53 +47,55 @@ const ResetPassword = () => {
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-100 to-blue-50 px-6 py-8">
-      <div className="max-w-md w-full bg-white shadow-lg rounded-xl p-8">
-        <h3 className="text-primaryColor text-3xl font-bold mb-8 text-center">
-          Reset Password
-        </h3>
+    <section className="portrait landscape flex items-center justify-center w-full bg-gradient-to-br from-blue-100 to-blue-50 dark:from-gray-900 dark:to-gray-800 px-4">
+      <div className="min-h-[100dvh] flex items-center justify-center py-10 w-full">
+        <div className="max-w-md w-full bg-white dark:bg-gray-800 shadow-lg rounded-xl p-8">
+          <h3 className="text-blue-600 text-4xl font-bold mb-8 text-center">
+            Reset Password
+          </h3>
 
-        <form onSubmit={handleResetPassword}>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              New Password
-            </label>
-            <input
-              type="password"
-              placeholder="Enter new password"
-              autoComplete="new-password"
-              className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-primaryColor focus:outline-none text-gray-900 text-base placeholder-gray-400"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          <form onSubmit={handleResetPassword} className="space-y-6">
+            <div>
+              <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                New Password
+              </label>
+              <input
+                type="password"
+                placeholder="Enter new password"
+                autoComplete="new-password"
+                className="scale-up w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white placeholder-gray-400"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Confirm New Password
-            </label>
-            <input
-              type="password"
-              placeholder="Confirm your password"
-              autoComplete="confirm-password"
-              className="w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-primaryColor focus:outline-none text-gray-900 text-base placeholder-gray-400"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
+            <div>
+              <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Confirm New Password
+              </label>
+              <input
+                type="password"
+                placeholder="Confirm your password"
+                autoComplete="confirm-password"
+                className="scale-up w-full px-5 py-5 text-xl rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white placeholder-gray-400"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="mt-8">
-            <button
-              type="submit"
-              className="w-full bg-primaryColor hover:bg-primaryDark text-white text-lg font-semibold rounded-lg px-4 py-3 transition ease-in-out duration-300">
-              Reset Password
-            </button>
-          </div>
-        </form>
+            <div className="pt-4">
+              <button
+                type="submit"
+                className="scale-up w-full bg-blue-600 hover:bg-blue-700 text-white text-xl font-semibold rounded-lg py-5 transition ease-in-out duration-300">
+                Reset Password
+              </button>
+            </div>
+          </form>
 
-        <ToastContainer />
+          <ToastContainer />
+        </div>
       </div>
     </section>
   );
