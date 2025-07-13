@@ -1,192 +1,109 @@
 /** @format */
 
 import { useState } from "react";
-import signUpImg from "../assets/images/signup.gif";
-import { Link, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import registerImg from "../assets/images/register.gif";
 import api from "../../api";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Signup() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState("");
-  const [password, setPassword] = useState("");
-
+function Register() {
   const navigateTo = useNavigate();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const validateEmail = (email) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase());
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const validatePhone = (phone) => phone.length >= 10;
-  const validatePassword = (password) => password.length >= 6;
-
-  const handleRegistration = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-
-    if (!validateEmail(email)) {
-      toast.error("Please enter a valid email.");
-      return;
-    }
-    if (!validatePhone(phone)) {
-      toast.error("Phone number should be at least 10 digits.");
-      return;
-    }
-    if (!validatePassword(password)) {
-      toast.error("Password should be at least 6 characters long.");
-      return;
+    if (form.password !== form.confirmPassword) {
+      return toast.error("Passwords do not match!");
     }
 
     try {
-      const res = await api.post("/user/patient/register", {
-        firstName,
-        lastName,
-        email,
-        phone,
-        gender,
-        password,
-      });
-
-      toast.success(res.data.message || "Registration successful!");
+      const res = await api.post("/user/register", form);
+      toast.success(res.data.message || "Registered successfully!");
       setTimeout(() => {
         navigateTo("/login");
       }, 800);
-
-      // Reset form fields
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPhone("");
-      setGender("");
-      setPassword("");
-    } catch (error) {
-      console.error("Registration error:", error);
+    } catch (err) {
       toast.error(
-        error.response?.data?.message ||
-          "Registration failed. Please try again."
+        err.response?.data?.message || "Registration failed. Try again."
       );
     }
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen w-full">
-      <div className="max-w-[1170px] w-full px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="hidden lg:block rounded-l-lg overflow-hidden">
-            <figure className="h-full w-full">
-              <img
-                src={signUpImg}
-                className="object-cover w-full h-full"
-                alt="Sign Up"
-              />
-            </figure>
-          </div>
+    <section className="w-full min-h-[100dvh] h-auto bg-gray-50 dark:bg-[#0f172a] overflow-y-auto flex justify-center items-center py-10">
+      <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-900">
+        {/* Image Section */}
+        <div className="hidden lg:flex w-full lg:w-1/2">
+          <img
+            src={registerImg}
+            alt="Register Visual"
+            className="object-cover w-full h-full"
+          />
+        </div>
 
-          <div className="rounded-lg lg:pl-16 py-10">
-            <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10 text-center lg:text-left">
-              Create an <span className="text-primaryColor">account</span>
-            </h3>
+        {/* Form Section */}
+        <div className="w-full lg:w-1/2 px-8 py-12 md:px-16">
+          <h2 className="text-3xl font-bold text-center text-primaryColor dark:text-white mb-8">
+            Create an Account 🚀
+          </h2>
 
-            <form onSubmit={handleRegistration}>
-              <div className="mb-5">
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                />
-              </div>
+          <form onSubmit={handleRegister} className="space-y-6">
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
+              onChange={handleChange}
+              value={form.name}
+              required
+            />
 
-              <div className="mb-5">
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                />
-              </div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
+              onChange={handleChange}
+              value={form.email}
+              required
+            />
 
-              <div className="mb-5">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                  autoComplete="email"
-                />
-              </div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
+              onChange={handleChange}
+              value={form.password}
+              required
+            />
 
-              <div className="mb-5">
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                  autoComplete="tel"
-                />
-              </div>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
+              onChange={handleChange}
+              value={form.confirmPassword}
+              required
+            />
 
-              <div className="mb-5">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pr-4 py-3 border-b border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] text-headingColor placeholder:text-textColor"
-                  required
-                  autoComplete="new-password"
-                />
-              </div>
-
-              <div className="mb-5 flex items-center justify-between">
-                <label className="text-headingColor font-bold text-[16px] leading-7">
-                  Gender
-                  <select
-                    name="gender"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    className="ml-4 text-textColor font-semibold text-[15px] px-4 py-3 border border-gray-300 rounded focus:outline-none"
-                    required>
-                    <option value="">Select</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </label>
-              </div>
-
-              <div className="mt-7">
-                <button
-                  type="submit"
-                  className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3">
-                  Sign Up
-                </button>
-              </div>
-
-              <p className="mt-5 text-textColor text-center">
-                Already have an account?
-                <Link
-                  to="/login"
-                  className="text-primaryColor font-medium ml-1">
-                  Login
-                </Link>
-              </p>
-            </form>
-          </div>
+            <button
+              type="submit"
+              className="w-full bg-primaryColor hover:bg-blue-700 transition text-white text-lg font-medium py-3 rounded-md">
+              Register
+            </button>
+          </form>
         </div>
       </div>
 
@@ -195,4 +112,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Register;
