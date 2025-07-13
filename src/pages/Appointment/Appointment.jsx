@@ -34,7 +34,7 @@ function Appointment() {
 
     try {
       // Book appointment API call
-      const res = await api.post("/appointments/book", {
+      const res = await api.post("/api/v1/appointments/book", {
         name,
         email,
         appointmentDate,

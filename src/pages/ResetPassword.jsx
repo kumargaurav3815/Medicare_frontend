@@ -30,7 +30,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await api.put(`/user/reset-password/${token}`, {
+      const response = await api.put(`/api/v1//user/reset-password/${token}`, {
         password,
       });
 
